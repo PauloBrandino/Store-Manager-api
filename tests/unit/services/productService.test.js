@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const { productService } = require('../../../src/services');
 const { productModel } = require('../../../src/models');
-const { allProducts, productById } = require('../models/mock/productsMock');
+const { allProducts, productById, newProduct } = require('../models/mock/productsMock');
 
 
 describe('Product Service Tests', () => {
@@ -25,7 +25,16 @@ describe('Product Service Tests', () => {
 
       expect(message).to.deep.equal(productById);
       expect(type).to.be.null;
-    })
+    });
+    it('Create product', async () => {
+      sinon.stub(productModel, 'createProduct').resolves({ id: 3, name: 'Mustang 2005' });
+
+      const { type, message: {id, name} } = await productService.createProduct(newProduct);
+
+      expect(type).to.be.null;
+      expect(id).to.be.equal(3);
+      expect(name).to.be.an('string');
+    });
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());
@@ -37,6 +46,6 @@ describe('Product Service Tests', () => {
 
       expect(result.message).to.be.equal('Product not found')
       expect(result.type).to.be.equal(404);
-    })
-  })
+    });
+  });
 });

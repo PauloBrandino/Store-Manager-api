@@ -5,7 +5,10 @@ const allProducts = [
 
 const productById = { id: 1, name: 'Martelo de Thor' };
 
+const newProduct = { name: 'Mustang 1967' }
+
 module.exports = { 
   allProducts,
   productById,
+  newProduct,
 }
