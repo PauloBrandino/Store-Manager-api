@@ -1,7 +1,9 @@
 const express = require('express');
+
 const app = express();
 
 const productsRouter = require('./routers/productsRouter');
+
 app.use(express.json());
 
 app.use('/products', productsRouter);
