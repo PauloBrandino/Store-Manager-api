@@ -8,6 +8,7 @@ async function getAll() {
 
 async function getById(id) {
   const productById = await productModel.getById(id);
+  if (!productById) return { type: 404, message: 'Product not found' };
 
   return { type: null, message: productById };
 }

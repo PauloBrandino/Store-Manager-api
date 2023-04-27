@@ -27,4 +27,16 @@ describe('Product Service Tests', () => {
       expect(type).to.be.null;
     })
   });
+  describe('Fails Case', () => {
+    afterEach(() => sinon.restore());
+
+    it('Returns error if product is not found', async () => {
+      sinon.stub(productModel, 'getById').resolves(undefined);
+
+      const result = await productService.getById(1);
+
+      expect(result.message).to.be.equal('Product not found')
+      expect(result.type).to.be.equal(404);
+    })
+  })
 });

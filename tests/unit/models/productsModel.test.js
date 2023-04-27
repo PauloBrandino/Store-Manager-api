@@ -16,11 +16,12 @@ describe('Products Model Tests', () => {
       expect(result[0]).to.contain.keys(['id', 'name']);
     });
     it('List registered product by id', async () => {
-      sinon.stub(connection, 'execute').resolves([productById]);
+      sinon.stub(connection, 'execute').resolves([[allProducts[0]]]);
 
-      const [result] = await productModel.getById();
+      const result = await productModel.getById(1);
+      
+      expect(result).to.be.deep.equal(allProducts[0]);
       expect(result).to.contain.keys(['id', 'name']);
-      expect(result.id).to.be.equal(1);
     });
   });
 });
