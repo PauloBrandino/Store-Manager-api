@@ -23,11 +23,11 @@ async function createProduct(product) {
 
   const newProductWithId = { ...product, id: insertId };
 
-  return newProductWithId
-};
+  return newProductWithId;
+}
 
 module.exports = {
   getAll,
   getById,
-  createProduct
+  createProduct,
 };
