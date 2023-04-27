@@ -11,11 +11,11 @@ describe('Product Service Tests', () => {
     afterEach(() => sinon.restore());
 
     it('List all registered products', async () => {
-      sinon.stub(productModel, 'getAll').resolves([allProducts])
+      sinon.stub(productModel, 'getAll').resolves(allProducts)
 
-      const result = await productService.getAll();
-      expect(result).to.be.an('array');
-      expect(result).to.have.length(1);
+      const { message } = await productService.getAll();
+      expect(message).to.be.an('array');
+      expect(message).to.deep.equal(allProducts);
     });
   });
 });

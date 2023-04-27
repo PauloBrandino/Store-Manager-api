@@ -3,7 +3,7 @@ const { productModel } = require("../models");
 async function getAll() {
   const products = await productModel.getAll();
 
-  return products;
+  return { type: null, message: products};
 };
 
 module.exports = {
