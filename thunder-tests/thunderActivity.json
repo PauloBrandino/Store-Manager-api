@@ -116,12 +116,31 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2023-04-27T23:18:35.874Z",
-    "modified": "2023-04-28T14:16:42.247Z",
+    "modified": "2023-04-28T17:33:32.031Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"sf\"\n}",
+      "raw": "{\n  \"name\": \"Verifica o id\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "8ca84af4-b9ef-4b9b-b2b9-37296bce0ac3",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3001/sales",
+    "url": "http://localhost:3001/sales",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-04-28T20:41:03.730Z",
+    "modified": "2023-04-28T21:15:59.791Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "[\n  {\n    \"productId\": 3,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]",
       "form": []
     },
     "tests": []
