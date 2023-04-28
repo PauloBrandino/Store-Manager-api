@@ -116,12 +116,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2023-04-27T23:18:35.874Z",
-    "modified": "2023-04-27T23:18:35.874Z",
+    "modified": "2023-04-28T14:16:42.247Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"ProdutoX\"\n}",
+      "raw": "{\n  \"name\": \"sf\"\n}",
       "form": []
     },
     "tests": []
