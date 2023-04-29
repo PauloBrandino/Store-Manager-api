@@ -97,14 +97,9 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2023-04-27T23:16:15.064Z",
-    "modified": "2023-04-27T23:16:15.064Z",
+    "modified": "2023-04-28T22:21:24.820Z",
     "headers": [],
     "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"ProdutoX\"\n}",
-      "form": []
-    },
     "tests": []
   },
   {
@@ -135,12 +130,12 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2023-04-28T20:41:03.730Z",
-    "modified": "2023-04-28T21:15:59.791Z",
+    "modified": "2023-04-29T13:43:52.936Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "[\n  {\n    \"productId\": 3,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]",
+      "raw": "[\n  {\n    \"productId\": 3,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 3,\n    \"quantity\": 5\n  }\n]",
       "form": []
     },
     "tests": []
