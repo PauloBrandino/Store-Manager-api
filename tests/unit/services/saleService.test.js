@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const { salesModel } = require('../../../src/models');
-const { newSale, newSaleInvalid } = require('../models/mock/salesMock');
+const { newSale, newSaleInvalid, listSalesMock } = require('../models/mock/salesMock');
 const { saleService } = require('../../../src/services');
 
 describe('Sales Service Tests', () => {
@@ -17,6 +17,15 @@ describe('Sales Service Tests', () => {
       expect(result.type).to.equal(null);
       expect(result.message).to.deep.equal(newSale);
     });
+    it('Returns a list of registered sales', async () => {
+      sinon.stub(salesModel, 'getAllSales').resolves(listSalesMock);
+
+      const { type, message } = await saleService.getAllSales();
+
+      expect(type).to.equal(null);
+      expect(message).to.be.an('array');
+      expect(message).to.deep.equal(listSalesMock);
+    })
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());
@@ -24,10 +33,10 @@ describe('Sales Service Tests', () => {
     it('Returns "Product not found" message if the product id is not found', async () => {
       sinon.stub(salesModel, 'createNewSale').resolves(undefined);
 
-      const result = await saleService.createNewSale(newSaleInvalid);
+      const { type, message } = await saleService.createNewSale(newSaleInvalid);
 
-      expect(result.type).to.be.equal(404);
-      expect(result.message).to.be.equal('Product not found');
+      expect(type).to.be.equal(404);
+      expect(message).to.be.equal('Product not found');
     });
   });
 });

@@ -14,6 +14,13 @@ async function createNewSale(newSale) {
   return { type: null, message: createdSale };
 }
 
+async function getAllSales() {
+  const listSales = await salesModel.getAllSales();
+
+  return { type: null, message: listSales };
+}
+
 module.exports = {
   createNewSale,
+  getAllSales,
 };

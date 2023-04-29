@@ -20,8 +20,9 @@ describe('Sales Model Tests', () => {
       sinon.stub(connection, 'execute').resolves(listSalesMock);
 
       const result = await salesModel.getAllSales();
+
       expect(result).to.be.an('array');
       expect(result).to.be.equal(listSalesMock)
-    })
+    });
   });
 });
