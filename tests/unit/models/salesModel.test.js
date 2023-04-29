@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
-const { newSale } = require('./mock/salesMock');
+const { newSale, listSalesMock } = require('./mock/salesMock');
 const { salesModel } = require('../../../src/models');
 
 describe('Sales Model Tests', () => {
@@ -16,5 +16,12 @@ describe('Sales Model Tests', () => {
       expect(result).to.be.an('object');
       expect(result).to.have.keys('id', 'itemsSold');
     });
+    it('Returns a list of registered sales', async () => {
+      sinon.stub(connection, 'execute').resolves(listSalesMock);
+
+      const result = await salesModel.getAllSales();
+      expect(result).to.be.an('array');
+      expect(result).to.be.equal(listSalesMock)
+    })
   });
 });

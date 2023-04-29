@@ -6,7 +6,7 @@ async function createSaleId() {
   );
 
   return insertId;
-}
+};
 
 async function createNewSale(newSales) {
   const saleId = await createSaleId();
@@ -18,8 +18,17 @@ async function createNewSale(newSales) {
     ))));
     
   return { id: saleId, itemsSold: newSales };
+};
+
+async function getAllSales() {
+  const result = await connection.execute(
+    'SELECT sp.sale_id, sp.product_id, sp.quantity, s.`date` FROM StoreManager.sales_products AS sp	INNER JOIN StoreManager.sales as s ON sp.sale_id = s.id;'
+  )
+  console.log(result);
+  return result
 }
 
 module.exports = {
   createNewSale,
+  getAllSales,
 };
