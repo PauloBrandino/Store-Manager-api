@@ -25,7 +25,15 @@ describe('Sales Service Tests', () => {
       expect(type).to.equal(null);
       expect(message).to.be.an('array');
       expect(message).to.deep.equal(listSalesMock);
-    })
+    });
+    it('Returns the sales registered with the reference id', async () => {
+      sinon.stub(salesModel, 'getSaleById').resolves(listSalesMock);
+
+      const { type, message } = await saleService.getSaleById(1);
+
+      expect(message).to.deep.equal(listSalesMock);
+      expect(type).to.equal(null);
+    });
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());

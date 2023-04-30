@@ -35,7 +35,6 @@ async function getSaleById(id) {
     [id]
   );
 
-  console.log(result);
   return result
 }
 

@@ -20,7 +20,14 @@ async function getAllSales() {
   return { type: null, message: listSales };
 }
 
+async function getSaleById(id) {
+  const getById = await salesModel.getSaleById(id);
+
+  return { type: null, message: getById }
+}
+
 module.exports = {
   createNewSale,
   getAllSales,
+  getSaleById,
 };

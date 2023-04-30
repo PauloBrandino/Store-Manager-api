@@ -24,7 +24,7 @@ describe('Sales Model Tests', () => {
       expect(result).to.be.an('object');
       expect(result).to.have.keys('saleId', 'date', 'productId', 'quantity')
     });
-    it('', async () => {
+    it('Returns the sales registered with the reference id', async () => {
       sinon.stub(connection, 'execute').resolves(listSalesMock);
 
       const result = await salesModel.getSaleById(1);
