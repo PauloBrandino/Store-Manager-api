@@ -21,8 +21,15 @@ describe('Sales Model Tests', () => {
 
       const result = await salesModel.getAllSales();
 
-      expect(result).to.be.an('array');
-      expect(result).to.be.equal(listSalesMock)
+      expect(result).to.be.an('object');
+      expect(result).to.have.keys('saleId', 'date', 'productId', 'quantity')
+    });
+    it('', async () => {
+      sinon.stub(connection, 'execute').resolves(listSalesMock);
+
+      const result = await salesModel.getSaleById(1);
+
+      expect(result).to.deep.equal(listSalesMock);
     });
   });
 });

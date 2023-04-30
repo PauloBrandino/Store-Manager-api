@@ -74,18 +74,13 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3001/products",
-    "url": "http://localhost:3001/products",
+    "url": "http://localhost:3001/sales",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-04-27T23:08:34.108Z",
-    "modified": "2023-04-27T23:18:30.136Z",
+    "modified": "2023-04-29T16:40:20.306Z",
     "headers": [],
     "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"ProdutoX\"\n}",
-      "form": []
-    },
     "tests": []
   },
   {
