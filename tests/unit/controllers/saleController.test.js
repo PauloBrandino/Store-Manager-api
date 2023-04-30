@@ -54,6 +54,22 @@ describe('Sales Controller Tests', () => {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(listSalesMock);
     });
+    it('', async () => {
+      sinon.stub(saleService, 'getSaleById').resolves({ type: null, message: listSalesMock });
+
+      const req = {
+        params: {
+          id: 1
+        }
+      };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await saleController.getSaleById(req, res);
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(listSalesMock);
+    });
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());

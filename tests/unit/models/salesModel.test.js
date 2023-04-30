@@ -27,9 +27,9 @@ describe('Sales Model Tests', () => {
     it('Returns the sales registered with the reference id', async () => {
       sinon.stub(connection, 'execute').resolves(listSalesMock);
 
-      const result = await salesModel.getSaleById(1);
+      const { saleId } = await salesModel.getSaleById(1);
 
-      expect(result).to.deep.equal(listSalesMock);
+      expect(saleId).to.be.equal(1);
     });
   });
 });

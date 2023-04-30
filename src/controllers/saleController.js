@@ -7,7 +7,7 @@ async function createNewSale(req, res) {
   if (type) return res.status(404).json({ message });
 
   return res.status(201).json(message);
-};
+}
 
 async function getAllSales(_req, res) {
   const { message } = await saleService.getAllSales();
@@ -15,7 +15,16 @@ async function getAllSales(_req, res) {
   return res.status(200).json(message);
 }
 
+async function getSaleById(req, res) {
+  const { id } = req.params;
+  const { type, message } = await saleService.getSaleById(id);
+  if (type) return res.status(404).json({ message });
+
+  return res.status(200).json(message);
+}
+
 module.exports = {
   createNewSale,
   getAllSales,
+  getSaleById,
 };

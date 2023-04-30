@@ -7,7 +7,7 @@ async function createSaleId() {
   );
 
   return insertId;
-};
+}
 
 async function createNewSale(newSales) {
   const saleId = await createSaleId();
@@ -19,27 +19,33 @@ async function createNewSale(newSales) {
     ))));
     
   return { id: saleId, itemsSold: newSales };
-};
+}
 
 async function getAllSales() {
   const [result] = await connection.execute(
-    'SELECT sp.sale_id, sp.product_id, sp.quantity, s.`date` FROM StoreManager.sales_products AS sp	INNER JOIN StoreManager.sales as s ON sp.sale_id = s.id;'
-  )
+    `SELECT sp.sale_id, sp.product_id, sp.quantity, s.date
+     FROM StoreManager.sales_products AS sp
+     INNER JOIN StoreManager.sales as s
+     ON sp.sale_id = s.id;`,
+  );
 
-  return camelize(result)
+  return camelize(result);
 }
 
 async function getSaleById(id) {
-  const result = await connection.execute(
-    'SELECT sp.sale_id, sp.product_id, sp.quantity, s.`date` FROM StoreManager.sales_products AS sp 	INNER JOIN StoreManager.sales as s ON sp.sale_id = s.id WHERE sp.sale_id = ?;',
-    [id]
+  const [result] = await connection.execute(
+    `SELECT sp.product_id, sp.quantity, s.date
+     FROM StoreManager.sales_products AS sp
+     INNER JOIN StoreManager.sales as s
+     ON sp.sale_id = s.id WHERE sp.sale_id = ?;`,
+    [id],
   );
 
-  return result
+  return camelize(result);
 }
 
 module.exports = {
   createNewSale,
   getAllSales,
-  getSaleById
+  getSaleById,
 };
