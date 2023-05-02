@@ -41,7 +41,7 @@ async function deleteProduct(id) {
     [id],
   );
   
-  return true
+  return true;
 }
 
 module.exports = {
