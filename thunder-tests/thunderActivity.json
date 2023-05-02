@@ -134,5 +134,43 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "146cf53c-757b-4a3c-8cf0-6c643a3285e9",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3001/products/1",
+    "url": "http://localhost:3001/products/1",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-05-01T14:06:26.113Z",
+    "modified": "2023-05-01T14:15:02.146Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Martelo do Homem de Ferro\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "54a3034b-807e-4a50-9f98-c72e81ae4f23",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3001/products/2",
+    "url": "http://localhost:3001/products/999",
+    "method": "PUT",
+    "sortNum": 0,
+    "created": "2023-05-01T14:34:48.718Z",
+    "modified": "2023-05-02T16:04:06.252Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Martelo do Thor\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]

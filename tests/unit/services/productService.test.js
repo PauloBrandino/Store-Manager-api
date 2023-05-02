@@ -35,6 +35,15 @@ describe('Product Service Tests', () => {
       expect(id).to.be.equal(3);
       expect(name).to.be.an('string');
     });
+    it('Update product sucess', async () => {
+      const newName = 'Martelo do Thor'
+      sinon.stub(productModel, 'updateProduct').resolves({id: 1, name: newName });
+
+      const { type, message } = await productService.updateProduct(1, newName);
+      expect(type).to.be.equal(null);
+      expect(message.name).to.be.equal(newName);
+      expect(message.id).to.be.equal(1);
+    });
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());
@@ -43,6 +52,14 @@ describe('Product Service Tests', () => {
       sinon.stub(productModel, 'getById').resolves(undefined);
 
       const result = await productService.getById(1);
+
+      expect(result.message).to.be.equal('Product not found')
+      expect(result.type).to.be.equal(404);
+    });
+    it('If the product is not found when updating, it returns a message "Product not found"', async () => {
+      sinon.stub(productModel, 'updateProduct').resolves(undefined);
+
+      const result = await productService.updateProduct(1000, 'teste de falha');
 
       expect(result.message).to.be.equal('Product not found')
       expect(result.type).to.be.equal(404);

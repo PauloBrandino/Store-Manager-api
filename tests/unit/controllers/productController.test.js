@@ -69,6 +69,36 @@ describe('Product Controller Tests', () => {
         id: 3,
         name: 'Mustang 2005',
       });
+      
+    });
+    it('Update product sucess', async () => {
+      const newName = 'Martelo do Thor'
+      sinon.stub(productService, 'updateProduct').resolves({
+        type: null,
+        message: {
+          id: 1,
+          name: newName,
+        },
+      });
+
+      const req = {
+        params: {
+          id: 1,
+        },
+        body: {
+          name: newName,
+        },
+      };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await productController.updateProduct(req, res);
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith({
+        id: 1,
+        name: newName,
+      });
     });
     describe('Fails Case', () => {
       afterEach(() => sinon.restore());
@@ -92,7 +122,30 @@ describe('Product Controller Tests', () => {
 
         expect(res.status).to.have.been.calledWith(404);
         expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
-      })
+      });
+      it('Returns a "product not found" message if the product id is not found when updating product', async () => {
+        sinon.stub(productService, 'updateProduct').resolves({
+          type: 404,
+          message: 'Product not found'
+        });
+
+        const req = {
+          body: {
+            name: 'Teste de falha'
+          },
+          params: {
+            id: 2000
+          },
+        }
+        const res = {}
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await productController.updateProduct(req, res);
+
+        expect(res.status).to.have.been.calledWith(404);
+        expect(res.json).to.have.been.calledWith('Product not found');
+      });
     });
-  });
+  })
 });

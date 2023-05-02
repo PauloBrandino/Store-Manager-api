@@ -32,5 +32,13 @@ describe('Products Model Tests', () => {
       expect(result.id).to.be.an('number');
       expect(result.id).to.be.equal(3);
     });
+    it('Update product sucess', async () => {
+      const newName = 'Martelo do Thor'
+      sinon.stub(connection, 'execute').resolves([{affectedRows: 1}]);
+
+      const result = await productModel.updateProduct(1, newName);   
+      expect(result.id).to.be.equal(1);
+      expect(result.name).to.be.equal(newName);
+    });
   });
 });
