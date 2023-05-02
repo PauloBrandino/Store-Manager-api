@@ -17,14 +17,23 @@ async function getAllSales(_req, res) {
 
 async function getSaleById(req, res) {
   const { id } = req.params;
-  const { type, message } = await saleService.getSaleById(id);
+  const { type, message } = await saleService.getSaleById(Number(id));
   if (type) return res.status(404).json({ message });
 
   return res.status(200).json(message);
+}
+
+async function deleteSale(req, res) {
+  const { id } = req.params;
+  const { type, message } = await saleService.deleteSale(id);
+  if (type) return res.status(404).json({ message });
+
+  return res.status(204).json();
 }
 
 module.exports = {
   createNewSale,
   getAllSales,
   getSaleById,
+  deleteSale,
 };
