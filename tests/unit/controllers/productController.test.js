@@ -131,7 +131,7 @@ describe('Product Controller Tests', () => {
 
         const req = {
           body: {
-            name: 'Teste de falha'
+            name: 'Teste de falhas'
           },
           params: {
             id: 2000
