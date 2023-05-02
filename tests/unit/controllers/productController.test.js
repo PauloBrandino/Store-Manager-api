@@ -100,6 +100,22 @@ describe('Product Controller Tests', () => {
         name: newName,
       });
     });
+    it('Delete product sucess', async () => {
+      sinon.stub(productService, 'deleteProduct').resolves(true);
+
+      const req = {
+        params: {
+          id: 1,
+        }
+      };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await productController.deleteProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+      });
     describe('Fails Case', () => {
       afterEach(() => sinon.restore());
 
@@ -142,6 +158,26 @@ describe('Product Controller Tests', () => {
         res.json = sinon.stub().returns();
 
         await productController.updateProduct(req, res);
+
+        expect(res.status).to.have.been.calledWith(404);
+        expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+      });
+      it('Returns a "product not found" message if the product id is not found when delete product', async () => {
+        sinon.stub(productService, 'deleteProduct').resolves({
+          type: 404,
+          message: 'Product not found'
+        });
+
+        const req = {
+          params: {
+            id: 2000
+          },
+        }
+        const res = {}
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await productController.deleteProduct(req, res);
 
         expect(res.status).to.have.been.calledWith(404);
         expect(res.json).to.have.been.calledWith({ message: 'Product not found' });

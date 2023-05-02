@@ -28,10 +28,18 @@ async function updateProduct(req, res) {
   const { name } = req.body;
 
   const { type, message } = await productService.updateProduct(Number(id), name);
-  console.log(message);
+
   if (type) return res.status(404).json({ message });
 
   return res.status(200).json(message);
+}
+
+async function deleteProduct(req, res) {
+  const { id } = req.params;
+  const { type, message } = await productService.deleteProduct(id);
+  if(type) return res.status(404).json({ message, })
+
+  return res.status(204).json();
 }
 
 module.exports = {
@@ -39,4 +47,5 @@ module.exports = {
   getById,
   createProduct,
   updateProduct,
+  deleteProduct,
 };

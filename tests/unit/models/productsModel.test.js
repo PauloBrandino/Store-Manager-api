@@ -40,5 +40,11 @@ describe('Products Model Tests', () => {
       expect(result.id).to.be.equal(1);
       expect(result.name).to.be.equal(newName);
     });
+    it('Delete product', async () => {
+      sinon.stub(connection, 'execute').resolves(true);
+
+      const result = await productModel.deleteProduct(1);
+      expect(result).to.be.equal(true);
+    });
   });
 });

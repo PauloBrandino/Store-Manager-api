@@ -39,12 +39,20 @@ describe('Sales Service Tests', () => {
     afterEach(() => sinon.restore());
 
     it('Returns "Product not found" message if the product id is not found', async () => {
-      sinon.stub(salesModel, 'createNewSale').resolves(undefined);
+      sinon.stub(salesModel, 'createNewSale').resolves([]);
 
       const { type, message } = await saleService.createNewSale(newSaleInvalid);
 
       expect(type).to.be.equal(404);
       expect(message).to.be.equal('Product not found');
+    });
+    it('Returns "Sale not found" message if the product id is not found when select sale by id', async () => {
+      sinon.stub(salesModel, 'getSaleById').resolves([]);
+
+      const { type, message } = await saleService.getSaleById(999);
+ 
+      expect(message).to.be.equal('Sale not found');
+      expect(type).to.be.equal(404);
     });
   });
 });

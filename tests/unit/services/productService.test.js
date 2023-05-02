@@ -37,12 +37,18 @@ describe('Product Service Tests', () => {
     });
     it('Update product sucess', async () => {
       const newName = 'Martelo do Thor'
-      sinon.stub(productModel, 'updateProduct').resolves({id: 1, name: newName });
+      sinon.stub(productModel, 'updateProduct').resolves({id: 2, name: newName });
 
-      const { type, message } = await productService.updateProduct(1, newName);
+      const { type, message } = await productService.updateProduct(2, newName);
       expect(type).to.be.equal(null);
       expect(message.name).to.be.equal(newName);
-      expect(message.id).to.be.equal(1);
+      expect(message.id).to.be.equal(2);
+    });
+    it('Delete product by Id', async () => {
+      sinon.stub(productModel, 'deleteProduct').resolves(true);
+
+      const result = await productService.deleteProduct(2);
+      expect(result).to.be.equal(true);
     });
   });
   describe('Fails Case', () => {
@@ -60,6 +66,14 @@ describe('Product Service Tests', () => {
       sinon.stub(productModel, 'updateProduct').resolves(undefined);
 
       const result = await productService.updateProduct(1000, 'teste de falha');
+
+      expect(result.message).to.be.equal('Product not found')
+      expect(result.type).to.be.equal(404);
+    });
+    it('If the product is not found when delete, it returns a message "Product not found"', async () => {
+      sinon.stub(productModel, 'deleteProduct').resolves(undefined);
+
+      const result = await productService.deleteProduct(1000);
 
       expect(result.message).to.be.equal('Product not found')
       expect(result.type).to.be.equal(404);

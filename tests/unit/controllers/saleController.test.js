@@ -54,7 +54,7 @@ describe('Sales Controller Tests', () => {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(listSalesMock);
     });
-    it('', async () => {
+    it('Returns sale by id', async () => {
       sinon.stub(saleService, 'getSaleById').resolves({ type: null, message: listSalesMock });
 
       const req = {
@@ -91,6 +91,26 @@ describe('Sales Controller Tests', () => {
 
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
-    })
+    });
+    it('Returns a "product not found" message if the product id is not found', async () => {
+      sinon.stub(saleService, 'getSaleById').resolves({
+        type: 404,
+        message: 'Sale not found'
+      });
+
+      const req = {
+        params: {
+          id: 999
+        }
+      }
+      const res = {}
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await saleController.getSaleById(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+    });
   });
 });

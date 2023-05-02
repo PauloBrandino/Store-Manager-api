@@ -1,7 +1,7 @@
 const connection = require('./connection');
 
 async function createSaleId() {
-  const [{ insertId }] = await connection.execute(
+  const [{ insertId, rows }] = await connection.execute(
     'INSERT INTO StoreManager.sales (date) VALUES (NOW());',
   );
 
@@ -15,8 +15,9 @@ async function createNewSale(newSales) {
     connection.execute(
       'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?);',
       [saleId, productId, quantity],
-    ))));
-    
+    ))
+));
+  
   return { id: saleId, itemsSold: newSales };
 }
 

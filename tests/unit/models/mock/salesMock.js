@@ -1,6 +1,6 @@
 const newSale = [
   {
-    "productId": 1,
+    "productId": 2,
     "quantity": 1
   },
   {
@@ -24,7 +24,7 @@ const newSaleInvalid = [
   },
 ];
 
-listSalesMock = [
+const listSalesMock = [
   {
     "saleId": 1,
     "date": "2021-09-09T04:54:29.000Z",
