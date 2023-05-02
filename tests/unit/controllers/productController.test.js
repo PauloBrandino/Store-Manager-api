@@ -144,7 +144,7 @@ describe('Product Controller Tests', () => {
         await productController.updateProduct(req, res);
 
         expect(res.status).to.have.been.calledWith(404);
-        expect(res.json).to.have.been.calledWith('Product not found');
+        expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
       });
     });
   })
