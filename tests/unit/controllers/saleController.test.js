@@ -70,6 +70,27 @@ describe('Sales Controller Tests', () => {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(listSalesMock);
     });
+    it('Updtade Sale sucess', async () => {
+      const updateMock = [{
+        "productId": 1,
+        "quantity": 10
+      }];
+      const req = {
+        params: {
+          id: 1
+        },
+        body: updateMock
+      };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(saleService, 'updateSale').resolves({ type: null, message: { saleId: 1, itemsUpdated: updateMock }});
+
+      await saleController.updateSale(req, res);
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith({ saleId: 1, itemsUpdated: updateMock });
+    });
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());

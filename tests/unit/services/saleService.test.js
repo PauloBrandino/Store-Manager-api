@@ -46,6 +46,13 @@ describe('Sales Service Tests', () => {
       expect(itemsUpdated).to.deep.equal(updateMock);
       expect(type).to.equal(null);
     });
+    it('Delete sale sucess', async () => {
+      sinon.stub(salesModel, 'deleteSale').resolves(true);
+
+      const result = await saleService.deleteSale(1);
+
+      expect(result).to.deep.equal(true);
+    });
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());
@@ -76,6 +83,26 @@ describe('Sales Service Tests', () => {
       const { type, message } = await saleService.updateSale(1, updateMock);
 
       expect(message).to.deep.equal('Product not found');
+      expect(type).to.equal(404);
+    });
+    it('Update sale fail with product id nonexistent', async () => {
+      const updateMock = [{
+        "productId": 1,
+        "quantity": 10
+      }];
+      sinon.stub(salesModel, 'updateSale').resolves(true);
+
+      const { type, message } = await saleService.updateSale(100, updateMock);
+
+      expect(message).to.deep.equal('Sale not found');
+      expect(type).to.equal(404);
+    });
+    it('Delete sale fail with sale id nonexistent', async () => {
+      sinon.stub(salesModel, 'deleteSale').resolves({ message: 'Sale not found' });
+
+      const { type, message } = await saleService.deleteSale(100);
+
+      expect(message).to.deep.equal('Sale not found');
       expect(type).to.equal(404);
     });
   });
