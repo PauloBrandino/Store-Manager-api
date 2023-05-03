@@ -31,5 +31,12 @@ describe('Sales Model Tests', () => {
 
       expect(saleId).to.be.equal(1);
     });
+    it('Delete sale sucess', async () => {
+      sinon.stub(connection, 'execute').resolves(true);
+
+      const result = await salesModel.deleteSale(1);
+
+      expect(result).to.be.equal(true);
+    });
   });
 });
