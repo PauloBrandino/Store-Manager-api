@@ -128,7 +128,7 @@ describe('Sales Controller Tests', () => {
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
-    it('Returns a "product not found" message if the product id is not found', async () => {
+    it('Returns a "product not found" message if the Sale id is not found', async () => {
       sinon.stub(saleService, 'getSaleById').resolves({
         type: 404,
         message: 'Sale not found'
@@ -164,6 +164,29 @@ describe('Sales Controller Tests', () => {
       });
 
       await saleController.deleteSale(req, res);
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+    });
+    it('Update Sale fail', async () => {
+      const updateMock = [{
+        "productId": 1,
+        "quantity": 10
+      }];
+      const req = {
+        params: {
+          id: 100
+        },
+      };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(saleService, 'updateSale').resolves({
+        type: 404,
+        message: 'Sale not found'
+      });
+
+      await saleController.updateSale(req, res);
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
     });
