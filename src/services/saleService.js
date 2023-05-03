@@ -1,14 +1,15 @@
 const { salesModel } = require('../models');
 const { getById } = require('./productService');
 
-async function createNewSale(newSale) {
-  const verifyProduct = Promise.all(newSale.map(async (sale) => {
-    const exist = await getById(sale.productId);
-    if (exist.type === 404) return true;
-    return false;
-  }));
+const verifyProduct = (product) => Promise.all(product.map(async (prodt) => {
+  const exist = await getById(prodt.productId);
+  if (exist.type === 404) return true;
+  return false;
+}));
 
-  if ((await verifyProduct).includes(true)) return { type: 404, message: 'Product not found' };
+async function createNewSale(newSale) {
+  if ((await verifyProduct(newSale))
+    .includes(true)) return { type: 404, message: 'Product not found' };
   const createdSale = await salesModel.createNewSale(newSale);
   
   return { type: null, message: createdSale };
@@ -37,9 +38,22 @@ async function deleteSale(id) {
   return deletedSale;
 }
 
+async function updateSale(saleId, infoToUpdate) {
+  const verifySale = await salesModel.getSaleById(saleId);
+
+  if ((await verifyProduct(infoToUpdate))
+    .includes(true)) return { type: 404, message: 'Product not found' };
+  if (verifySale.length === 0) return { type: 404, message: 'Sale not found' };
+
+  const infoToUpdated = await salesModel.updateSale(saleId, infoToUpdate);
+
+  return { type: null, message: { saleId, itemsUpdated: infoToUpdated } };
+}
+
 module.exports = {
   createNewSale,
   getAllSales,
   getSaleById,
   deleteSale,
+  updateSale,
 };
