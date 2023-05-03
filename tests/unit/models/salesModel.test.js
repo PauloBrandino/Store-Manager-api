@@ -38,5 +38,17 @@ describe('Sales Model Tests', () => {
 
       expect(result).to.be.equal(true);
     });
+    it('Update sale sucess', async () => {
+      const updateMock = {
+        "productId": 1,
+        "quantity": 10
+      };
+      
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+      const result = await salesModel.updateSale(1, updateMock);
+
+      expect(result).to.be.equal(true);
+    });
   });
 });

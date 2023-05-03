@@ -34,6 +34,18 @@ describe('Sales Service Tests', () => {
       expect(message).to.deep.equal(listSalesMock);
       expect(type).to.equal(null);
     });
+    it('Update sale sucess', async () => {
+      const updateMock = [{
+        "productId": 1,
+        "quantity": 10
+      }];
+      sinon.stub(salesModel, 'updateSale').resolves(true);
+
+      const { type, message: { itemsUpdated } } = await saleService.updateSale(1, updateMock);
+
+      expect(itemsUpdated).to.deep.equal(updateMock);
+      expect(type).to.equal(null);
+    });
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());
@@ -53,6 +65,18 @@ describe('Sales Service Tests', () => {
  
       expect(message).to.be.equal('Sale not found');
       expect(type).to.be.equal(404);
+    });
+    it('Update sale fail with product id nonexistent', async () => {
+      const updateMock = [{
+        "productId": 10,
+        "quantity": 10
+      }];
+      sinon.stub(salesModel, 'updateSale').resolves(true);
+
+      const { type, message } = await saleService.updateSale(1, updateMock);
+
+      expect(message).to.deep.equal('Product not found');
+      expect(type).to.equal(404);
     });
   });
 });

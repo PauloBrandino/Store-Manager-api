@@ -51,21 +51,12 @@ async function deleteSale(id) {
   return true;
 }
 
-async function updateSale(id, infoToUpdate) {
-  const getSales = await getSaleById(id);
-
-  getSales.forEach(({ productId }) => {
-    infoToUpdate.map(async (info) => {
-      if (info.productId === productId) {
-       await connection.execute(
-          'UPDATE StoreManager.sales_products SET quantity = ? WHERE product_id = ?',
-         [info.quantity, productId],
-);
-      }
-    });
-  });
-
-  return infoToUpdate;
+async function updateSale({ quantity, productId }) {
+  await connection.execute(
+    'UPDATE StoreManager.sales_products SET quantity = ? WHERE product_id = ?',
+    [quantity, productId],
+  );
+  return true;
 }
 
 module.exports = {

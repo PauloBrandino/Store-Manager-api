@@ -44,10 +44,12 @@ async function updateSale(saleId, infoToUpdate) {
   if ((await verifyProduct(infoToUpdate))
     .includes(true)) return { type: 404, message: 'Product not found' };
   if (verifySale.length === 0) return { type: 404, message: 'Sale not found' };
+  
+  infoToUpdate.forEach(async (info) => (
+    await salesModel.updateSale(info)
+  ));
 
-  const infoToUpdated = await salesModel.updateSale(saleId, infoToUpdate);
-
-  return { type: null, message: { saleId, itemsUpdated: infoToUpdated } };
+  return { type: null, message: { saleId, itemsUpdated: infoToUpdate } };
 }
 
 module.exports = {
