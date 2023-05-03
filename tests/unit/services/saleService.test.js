@@ -85,7 +85,7 @@ describe('Sales Service Tests', () => {
       expect(message).to.deep.equal('Product not found');
       expect(type).to.equal(404);
     });
-    it('Update sale fail with product id nonexistent', async () => {
+    it('Delete sale fail with sale id nonexistent', async () => {
       const updateMock = [{
         "productId": 1,
         "quantity": 10

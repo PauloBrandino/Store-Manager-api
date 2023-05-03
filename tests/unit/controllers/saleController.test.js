@@ -91,6 +91,21 @@ describe('Sales Controller Tests', () => {
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith({ saleId: 1, itemsUpdated: updateMock });
     });
+    it('Delete Sale sucess', async () => {
+      const req = {
+        params: {
+          id: 1
+        },
+      };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(saleService, 'deleteSale').resolves(true);
+
+      await saleController.deleteSale(req, res);
+      expect(res.status).to.have.been.calledWith(204);
+    });
   });
   describe('Fails Case', () => {
     afterEach(() => sinon.restore());
@@ -130,6 +145,25 @@ describe('Sales Controller Tests', () => {
 
       await saleController.getSaleById(req, res);
 
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+    });
+    it('Delete Sale fail', async () => {
+      const req = {
+        params: {
+          id: 100
+        },
+      };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(saleService, 'deleteSale').resolves({
+        type: 404,
+        message: 'Sale not found'
+      });
+
+      await saleController.deleteSale(req, res);
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
     });
