@@ -1,3 +1,4 @@
+const { query } = require('express');
 const { productService } = require('../services');
 
 async function getAll(_req, res) {
@@ -42,10 +43,20 @@ async function deleteProduct(req, res) {
   return res.status(204).json();
 }
 
+async function getProductByName(req, res) {
+  const { q } = req.query;
+
+  const { type, message } = await productService.getProductByName(q);
+  if (type) return res.status(200).json(message);
+  
+  return res.status(200).json(message);
+}
+
 module.exports = {
   getAll,
   getById,
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductByName,
 };

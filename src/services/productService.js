@@ -37,10 +37,22 @@ async function deleteProduct(id) {
   return deletedProduct;
 }
 
+async function getProductByName(name) {
+  const result = await productModel.getProductByName(name);
+  if (result.length === 0) {
+    const resultAll = await productModel.getAll();
+
+    return { type: 404, message: resultAll }
+  } 
+  
+  return { type: null, message: result }
+}
+
 module.exports = {
   getAll,
   getById,
   createProduct,
   updateProduct,
   deleteProduct,
+  getProductByName,
 };
