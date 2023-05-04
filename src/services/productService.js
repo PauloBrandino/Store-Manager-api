@@ -42,10 +42,10 @@ async function getProductByName(name) {
   if (result.length === 0) {
     const resultAll = await productModel.getAll();
 
-    return { type: 404, message: resultAll }
+    return { type: 404, message: resultAll };
   } 
   
-  return { type: null, message: result }
+  return { type: null, message: result };
 }
 
 module.exports = {

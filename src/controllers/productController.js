@@ -1,4 +1,3 @@
-const { query } = require('express');
 const { productService } = require('../services');
 
 async function getAll(_req, res) {
